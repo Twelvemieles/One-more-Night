@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class PickeableItem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] protected ResourcesManager.ResourceType ResourceType;
+    [SerializeField] protected int resourceQuantity;
 
-    // Update is called once per frame
-    void Update()
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if(collision.CompareTag("Player"))
+        {
+            Picked(collision.transform);
+        }
+    }
+    protected void Picked(Transform playerTransform)
+    {
+        StartPickAnimation(playerTransform);
+    }
+    protected void StartPickAnimation(Transform playerTransform)
+    {
+        LeanTween.move(gameObject, playerTransform, 0.2f).setOnComplete(() =>
+         {
+             GiveResources();
+         }
+        );
+    }
+    protected void GiveResources()
+    {
+        GameManager.inst.ResourcesManager.ModifyResourceValue(ResourceType, resourceQuantity);
+        DestroyItem();
+    }
+    protected void DestroyItem()
+    {
+        Destroy(gameObject);
     }
 }

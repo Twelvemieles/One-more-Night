@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject splashScreen;
     [SerializeField] private GameObject mainMenuScreen;
     [SerializeField] private GameObject gameplayScreen;
+    [SerializeField] private GameObject gameplayUIScreen;
     [SerializeField] private GameObject endGameScreen;
     #region SplashScreen
     public void ShowSplashScreen()
@@ -36,12 +37,14 @@ public class UIManager : MonoBehaviour
     public void ShowGameplayScreen()
     {
         gameplayScreen.SetActive(true);
+        gameplayUIScreen.SetActive(true);
         HideMainMenu();
         HideEndGameScreen();
     }
     public void HideGameplayScreen()
     {
         gameplayScreen.SetActive(false);
+        gameplayUIScreen.SetActive(false);
     }
     #endregion
     #region EndGameScreen

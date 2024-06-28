@@ -9,6 +9,9 @@ public class PlayerView : CreatureView
     [SerializeField] private float coinMultiplier;
     [SerializeField] private BulletView bulletViewPrefab;
     [SerializeField] private Transform bulletSpawn;
+    [SerializeField] private GameObject interactionExclamation;
+
+    private InteractableObject _closeInteractableObject;
 
     void Update()
     {
@@ -22,6 +25,11 @@ public class PlayerView : CreatureView
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Attack();
+        }
+
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            Interact();
         }
     }
     protected override void Move(Vector2 movementVector)
@@ -44,7 +52,19 @@ public class PlayerView : CreatureView
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        _closeInteractableObject = collision.gameObject.GetComponent<InteractableObject>();
+        if (_closeInteractableObject != null && _closeInteractableObject.CanInteract)
+        {
+            EnableInteractionExclamation();
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Interactable"))
+        {
+            _closeInteractableObject = null;
+            DisableInteractionExclamation();
+        }
     }
     private void PickItem()
     {
@@ -53,9 +73,19 @@ public class PlayerView : CreatureView
 
     private void Interact()
     {
-
+        if(_closeInteractableObject != null)
+        {
+            _closeInteractableObject.OnInteraction();
+        }
     }
-
+    private void EnableInteractionExclamation()
+    {
+        interactionExclamation.SetActive(true);
+    }
+    private void DisableInteractionExclamation()
+    {
+        interactionExclamation.SetActive(false);
+    }
     public void UseLantern()
     {
 
