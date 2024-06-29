@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public EnemiesManager EnemiesManager;
     public TutorialManager TutorialManager;
     public StoreManager storeManager;
+    public AudioManager AudioManager;
 
     private void Start()
     {
