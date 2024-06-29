@@ -12,10 +12,107 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c60eed8aeea2e340863f843e4808244, type: 3}
   m_Name: ResourcesConfig
   m_EditorClassIdentifier: 
+  initialResourceConfigs:
+  - initialresource:
+      resource: 0
+      resourcesQuantity: 10
+    icon: {fileID: 21300000, guid: 9c5f75faa4c63d4499e6694da108de76, type: 3}
+    pickeableItemPrefab: {fileID: 3478655270803029615, guid: ccfdd59ef0aa78340881b5c7af15b28b, type: 3}
+  - initialresource:
+      resource: 1
+      resourcesQuantity: 6
+    icon: {fileID: 21300000, guid: 6b3b8ef492edc304f9230dc368e8af5c, type: 3}
+    pickeableItemPrefab: {fileID: 3478655270803029615, guid: b3d41dffa9e16094da41b377e18eff5d, type: 3}
+  - initialresource:
+      resource: 2
+      resourcesQuantity: 11
+    icon: {fileID: 21300000, guid: d2c0dc76eca05bb4eb4f3fc4a37f258d, type: 3}
+    pickeableItemPrefab: {fileID: 3478655270803029615, guid: 95a0ba5facc5c804ebf1c45d1b6f4b14, type: 3}
+  - initialresource:
+      resource: 3
+      resourcesQuantity: 10
+    icon: {fileID: 21300000, guid: 9a397e83c4c3c994c988babb654f2b5d, type: 3}
+    pickeableItemPrefab: {fileID: 0}
+  - initialresource:
+      resource: 4
+      resourcesQuantity: 1
+    icon: {fileID: 21300000, guid: 80e159dab3e6f1142bc5062eb184ccaf, type: 3}
+    pickeableItemPrefab: {fileID: 0}
+  storeConfig:
+    itemsToTrade:
+    - tradeID: LanternGas_1
+      itemToTrade:
+        resource: 2
+        resourcesQuantity: 3
+      reward:
+        resource: 4
+        resourcesQuantity: 1
+    - tradeID: Bullets_1
+      itemToTrade:
+        resource: 2
+        resourcesQuantity: 3
+      reward:
+        resource: 3
+        resourcesQuantity: 10
+    - tradeID: Sell_Slime_1
+      itemToTrade:
+        resource: 0
+        resourcesQuantity: 1
+      reward:
+        resource: 2
+        resourcesQuantity: 2
+    - tradeID: Sell_Mineral_1
+      itemToTrade:
+        resource: 1
+        resourcesQuantity: 1
+      reward:
+        resource: 2
+        resourcesQuantity: 4
   skinsConfig:
-  - skinID: 
-    playerSkinPrefab: {fileID: 0}
+  - skinID: Default
+    playerSkinPrefab: {fileID: 3319951682485469094, guid: 0efff1c9491863d4e8bad76c6e48d4bb, type: 3}
     skinCostResources: []
     playerBooster:
       boosterType: 0
-      multiplierValue: 0
+      multiplierValue: 1
+  - skinID: Cloak
+    playerSkinPrefab: {fileID: 1418608593520776168, guid: e933a58815d218648ada1d1828919cd1, type: 3}
+    skinCostResources:
+    - resource: 2
+      resourcesQuantity: 7
+    - resource: 1
+      resourcesQuantity: 5
+    playerBooster:
+      boosterType: 0
+      multiplierValue: 2.5
+  - skinID: Hat
+    playerSkinPrefab: {fileID: 2036475388352344820, guid: abd45745324f06f42afb887a6ee1fe9c, type: 3}
+    skinCostResources:
+    - resource: 0
+      resourcesQuantity: 10
+    playerBooster:
+      boosterType: 1
+      multiplierValue: 3
+  weaponConfig:
+    weaponUpgrades:
+    - cadence: 1
+      damage: 1
+      resourcesCost: []
+    - cadence: 0.7
+      damage: 3
+      resourcesCost:
+      - resource: 2
+        resourcesQuantity: 10
+      - resource: 0
+        resourcesQuantity: 7
+      - resource: 1
+        resourcesQuantity: 5
+    - cadence: 0.5
+      damage: 5
+      resourcesCost:
+      - resource: 2
+        resourcesQuantity: 20
+      - resource: 0
+        resourcesQuantity: 12
+      - resource: 1
+        resourcesQuantity: 10

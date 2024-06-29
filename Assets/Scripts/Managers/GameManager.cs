@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     private void StartGame()
     {
         UIManager.ShowSplashScreen();
-
+        ResourcesManager.SetupInitialResourcesValues();
     }
     public void StartGamePlay()
     {

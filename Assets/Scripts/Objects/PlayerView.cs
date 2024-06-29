@@ -14,14 +14,24 @@ public class PlayerView : CreatureView
     [SerializeField] private Light2D lanternLight;
     [SerializeField] private float lanternCostBySec;
 
+    [SerializeField] private Transform skinLocator;
+    
+
     private InteractableObject _closeInteractableObject;
     private bool _isLanternActive;
     private float _initialLanternintensity;
+    private PlayerSkin _actualSkinUsed;
     protected override void Start()
     {
         base.Start();
+        GameManager.inst.ResourcesManager.OnSkinSelected += OnSkinSelected;
+        SetupInitialValues();
+    }
+    private void SetupInitialValues()
+    {
         _initialLanternintensity = lanternLight.intensity;
         HideLantern();
+        OnSkinSelected(GameManager.inst.ResourcesManager.ActualSkin);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -153,4 +163,31 @@ public class PlayerView : CreatureView
         lanternLight.intensity = 0;
     }
     #endregion
+
+# region Skin
+
+    private void OnSkinSelected(string SkinConfig)
+    {
+        CleanActualSkin();
+        _actualSkinUsed = GameManager.inst.ResourcesManager.resourcesConfig.GetSkinConfigByID(SkinConfig).playerSkinPrefab;
+        SetSkin(_actualSkinUsed);
+    }
+    private void SetSkin(PlayerSkin playerSkin)
+    {
+        Instantiate(playerSkin, skinLocator);
+    }
+    private void CleanActualSkin()
+    {
+        foreach (Transform child in skinLocator)
+        {
+            Destroy(child.gameObject);
+        }
+        _actualSkinUsed = null;
+    }
+    #endregion
+    private void OnDestroy()
+    {
+
+        GameManager.inst.ResourcesManager.OnSkinSelected -= OnSkinSelected;
+    }
 }

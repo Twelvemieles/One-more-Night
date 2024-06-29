@@ -49,4 +49,31 @@ public class ResourceCountUI : MonoBehaviour
     {
         if (CountText != null) CountText.text = value.ToString();
     }
+    private void OnDestroy()
+    {
+        switch (resourceType)
+        {
+            case ResourcesManager.ResourceType.Coin:
+
+                GameManager.inst.ResourcesManager.OnCoinsChange -= OnResourceUpdate;
+                break;
+            case ResourcesManager.ResourceType.Mineral:
+
+                GameManager.inst.ResourcesManager.OnMineralChange -= OnResourceUpdate;
+                break;
+            case ResourcesManager.ResourceType.Slime:
+
+                GameManager.inst.ResourcesManager.OnSlimeChange -= OnResourceUpdate;
+                break;
+            case ResourcesManager.ResourceType.Bullet:
+
+                GameManager.inst.ResourcesManager.OnBulletsChange -= OnResourceUpdate;
+                break;
+            case ResourcesManager.ResourceType.LanternGas:
+
+                GameManager.inst.ResourcesManager.OnLanternGasChange -= OnResourceUpdate;
+                break;
+
+        }
+    }
 }
