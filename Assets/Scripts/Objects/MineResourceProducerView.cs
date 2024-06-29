@@ -39,8 +39,7 @@ public class MineResourceProducer : InteractableObject
     }
     private bool SpendCoinsToActivate()
     {
-        bool successful = GameManager.inst.ResourcesManager.TryToSpendResource(ResourcesManager.ResourceType.Coin, activationCost);
-        return successful;
+        return GameManager.inst.ResourcesManager.TryToSpendResource(ResourcesManager.ResourceType.Coin, activationCost);
     }
     private void PlayNoEnoughResourcesAnimation()
     {

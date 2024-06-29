@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerView : CreatureView
 {
@@ -10,9 +11,34 @@ public class PlayerView : CreatureView
     [SerializeField] private BulletView bulletViewPrefab;
     [SerializeField] private Transform bulletSpawn;
     [SerializeField] private GameObject interactionExclamation;
+    [SerializeField] private Light2D lanternLight;
+    [SerializeField] private float lanternCostBySec;
 
     private InteractableObject _closeInteractableObject;
-
+    private bool _isLanternActive;
+    private float _initialLanternintensity;
+    protected override void Start()
+    {
+        base.Start();
+        _initialLanternintensity = lanternLight.intensity;
+        HideLantern();
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        _closeInteractableObject = collision.gameObject.GetComponent<InteractableObject>();
+        if (_closeInteractableObject != null && _closeInteractableObject.CanInteract)
+        {
+            EnableInteractionExclamation();
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Interactable"))
+        {
+            _closeInteractableObject = null;
+            DisableInteractionExclamation();
+        }
+    }
     void Update()
     {
         Vector2 movementVector = new Vector2();
@@ -31,6 +57,18 @@ public class PlayerView : CreatureView
         {
             Interact();
         }
+        
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            if(!_isLanternActive)
+            {
+                UseLantern();
+            }
+            else
+            {
+                HideLantern();
+            }
+        }
     }
     protected override void Move(Vector2 movementVector)
     {
@@ -47,30 +85,22 @@ public class PlayerView : CreatureView
     protected override void Attack()
     {
         base.Attack();
-        BulletView bulletView =  Instantiate(bulletViewPrefab, bulletSpawn.position, bulletSpawn.rotation);
+        if(SpendBullet())
+        {
+            ShootBullet();
+        }
+    }
+    private void ShootBullet()
+    {
+        BulletView bulletView = Instantiate(bulletViewPrefab, bulletSpawn.position, bulletSpawn.rotation);
         bulletView.init(bulletRangeSeconds);
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private bool SpendBullet()
     {
-        _closeInteractableObject = collision.gameObject.GetComponent<InteractableObject>();
-        if (_closeInteractableObject != null && _closeInteractableObject.CanInteract)
-        {
-            EnableInteractionExclamation();
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Interactable"))
-        {
-            _closeInteractableObject = null;
-            DisableInteractionExclamation();
-        }
-    }
-    private void PickItem()
-    {
-
+        return GameManager.inst.ResourcesManager.TryToSpendResource(ResourcesManager.ResourceType.Bullet, 1);
     }
 
+    #region Interaction
     private void Interact()
     {
         if(_closeInteractableObject != null)
@@ -86,8 +116,41 @@ public class PlayerView : CreatureView
     {
         interactionExclamation.SetActive(false);
     }
-    public void UseLantern()
+    #endregion
+    #region lantern
+    private void UseLantern()
     {
-
+        if(SpendLanternGas())
+        {
+            _isLanternActive = true;
+            StartCoroutine(DoUseLantern());
+            lanternLight.intensity = _initialLanternintensity;
+        }
     }
+    private IEnumerator DoUseLantern()
+    {
+        while(_isLanternActive)
+        {
+            yield return new WaitForSeconds(1);
+            if (SpendLanternGas())
+            {
+                yield return null;
+            }
+            else
+            {
+                HideLantern();
+            }
+        }
+    }
+    private bool SpendLanternGas()
+    {
+        return GameManager.inst.ResourcesManager.TryToSpendResource(ResourcesManager.ResourceType.LanternGas, lanternCostBySec);
+    }
+    private void HideLantern()
+    {
+        StopCoroutine(DoUseLantern());  
+        _isLanternActive = false;
+        lanternLight.intensity = 0;
+    }
+    #endregion
 }

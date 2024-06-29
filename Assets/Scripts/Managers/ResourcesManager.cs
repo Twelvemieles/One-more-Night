@@ -17,61 +17,75 @@ public class ResourcesManager : MonoBehaviour
     [SerializeField] private PickeableItem coinResourcePrefab;
     [SerializeField] private PickeableItem slimeResourcePrefab;
 
-    private int _coinsCount;
+    private int _coinsCount = 1;
     private int _slimeCount;
     private int _mineralCount;
-    private float _lanternGasValue;
-    private int _bulletsCount;
+    private float _lanternGasValue = 1;
+    private int _bulletsCount = 5;
+    
+    public int CoinsCount => _coinsCount;
+    public int SlimeCount => _slimeCount;
+    public int MineralCount => _mineralCount;
+    public float LanternGasValue => _lanternGasValue;
+    public int BulletsCount => _bulletsCount;
     public enum ResourceType
     {
         Slime,
         Mineral,
-        Coin
+        Coin,
+        Bullet,
+        LanternGas
     }
-    public void ModifyResourceValue(ResourceType resourceType, int delta)
+    public void ModifyResourceValue(ResourceType resourceType, float delta)
     {
         switch(resourceType)
         {
                 case ResourceType.Slime:
-                ModifySlime(delta);
+                ModifySlime((int)delta);
                 break;
                 case ResourceType.Mineral:
-                ModifyMineral(delta);
+                ModifyMineral((int)delta);
                 break;
                 case ResourceType.Coin:
-                ModifyCoins(delta);
+                ModifyCoins((int)delta);
+                break;
+                case ResourceType.Bullet:
+                ModifyBullets((int)delta);
+                break;
+                case ResourceType.LanternGas:
+                ModifyLanternGas(delta);
                 break;
         }
     }
-    public void ModifyCoins (int delta)
+    private void ModifyCoins (int delta)
     {
         _coinsCount += delta;
 
         OnCoinsChange.Invoke(_coinsCount);
     }
-    public void ModifySlime (int delta)
+    private void ModifySlime (int delta)
     {
         _slimeCount += delta;
 
         OnSlimeChange.Invoke(_slimeCount);
     }
-    public void ModifyMineral(int delta)
+    private void ModifyMineral(int delta)
     {
         _mineralCount += delta;
         OnMineralChange.Invoke(_mineralCount);
     }
-    public void ModifyLanternGas(float delta)
+    private void ModifyLanternGas(float delta)
     {
         _lanternGasValue += delta;
         OnLanternGasChange.Invoke(_lanternGasValue);
     }
-    public void ModifyBullets(int delta)
+    private void ModifyBullets(int delta)
     {
         _bulletsCount += delta;
         OnBulletsChange.Invoke(_bulletsCount);
     }
 
-    public bool TryToSpendResource(ResourceType resourceType,int cost)
+    public bool TryToSpendResource(ResourceType resourceType,float cost)
     {
         bool successful = false;
         if(HasEnoughResource(resourceType,cost))
@@ -79,13 +93,19 @@ public class ResourcesManager : MonoBehaviour
             switch (resourceType)
             {
                 case ResourceType.Coin:
-                    ModifyCoins(-cost);
+                    ModifyCoins((int)-cost);
                     break;
                 case ResourceType.Mineral:
-                    ModifyMineral(-cost);
+                    ModifyMineral((int)-cost);
                     break;
                 case ResourceType.Slime:
-                    ModifySlime(-cost);
+                    ModifySlime((int)-cost);
+                    break;
+                case ResourceType.Bullet:
+                    ModifyBullets((int)-cost);
+                    break;
+                case ResourceType.LanternGas:
+                    ModifyLanternGas(-cost);
                     break;
             }
             successful = true;
@@ -93,19 +113,25 @@ public class ResourcesManager : MonoBehaviour
         }
         return successful;
     }
-    private bool HasEnoughResource(ResourceType resourceType, int value)
+    private bool HasEnoughResource(ResourceType resourceType, float value)
     {
         bool result = false;
         switch (resourceType)
         {
             case ResourceType.Coin:
-                result = _coinsCount >= value;
+                result = _coinsCount >= (int)value;
                 break;
             case ResourceType.Mineral:
-                result = _mineralCount >= value;
+                result = _mineralCount >= (int)value;
                 break;
             case ResourceType.Slime:
-                result = _slimeCount >= value;
+                result = _slimeCount >= (int)value;
+                break;
+            case ResourceType.Bullet:
+                result = _bulletsCount >= (int) value;
+                break;
+            case ResourceType.LanternGas:
+                result = _lanternGasValue >= value;
                 break;
         }
         return result;

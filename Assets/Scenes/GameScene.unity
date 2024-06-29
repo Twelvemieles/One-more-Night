@@ -6050,6 +6050,7 @@ GameObject:
   - component: {fileID: 966076402}
   - component: {fileID: 966076404}
   - component: {fileID: 966076403}
+  - component: {fileID: 966076405}
   m_Layer: 5
   m_Name: Bullets_Panel
   m_TagString: Untagged
@@ -6116,6 +6117,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 966076401}
   m_CullTransparentMesh: 1
+--- !u!114 &966076405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966076401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3de3983b22c346b4293d54ea98be87be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceType: 3
+  CountText: {fileID: 494865589}
 --- !u!1 &967081247
 GameObject:
   m_ObjectHideFlags: 0
@@ -6387,7 +6402,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1138774779}
+  m_Father: {fileID: 1059810637}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7055,7 +7070,7 @@ GameObject:
   - component: {fileID: 1059810637}
   - component: {fileID: 1059810638}
   m_Layer: 5
-  m_Name: Light 2D (1)
+  m_Name: Lantern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7072,7 +7087,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 991448077}
   m_Father: {fileID: 1138774779}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -7652,7 +7668,6 @@ RectTransform:
   m_Children:
   - {fileID: 667200680}
   - {fileID: 645010346}
-  - {fileID: 991448077}
   - {fileID: 1059810637}
   m_Father: {fileID: 2128447940}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7819,6 +7834,8 @@ MonoBehaviour:
   bulletViewPrefab: {fileID: 478981129002316911, guid: 231f063b415581f47a4f903344c5eab8, type: 3}
   bulletSpawn: {fileID: 667200680}
   interactionExclamation: {fileID: 645010345}
+  lanternLight: {fileID: 1059810638}
+  lanternCostBySec: 0.05
 --- !u!1 &1150813613
 GameObject:
   m_ObjectHideFlags: 0
@@ -10562,6 +10579,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1627150809}
   - component: {fileID: 1627150811}
+  - component: {fileID: 1627150812}
   - component: {fileID: 1627150810}
   m_Layer: 5
   m_Name: Battery_Panel
@@ -10628,6 +10646,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1627150808}
   m_CullTransparentMesh: 1
+--- !u!114 &1627150812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627150808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9a67eac943aa914ba3f31d9e958ed55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceType: 4
+  CountText: {fileID: 0}
+  slider: {fileID: 2125411111}
 --- !u!1 &1636249512
 GameObject:
   m_ObjectHideFlags: 0
