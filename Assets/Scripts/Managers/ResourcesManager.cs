@@ -77,6 +77,7 @@ public class ResourcesManager : MonoBehaviour
     private void ModifyLanternGas(float delta)
     {
         _lanternGasValue += delta;
+        _lanternGasValue = Mathf.Clamp01(_lanternGasValue);
         OnLanternGasChange.Invoke(_lanternGasValue);
     }
     private void ModifyBullets(int delta)
