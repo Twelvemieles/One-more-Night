@@ -1,9 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class StoreScreenView : MonoBehaviour
 {
+    public ResourcesManager.voidDelegate OnUpdateUI;
+
+    [SerializeField] private Image actualSkinImage;
+    private void OnEnable()
+    {
+        UpdateUI();
+    }
     public void CloseStorePanel()
     {
         GameManager.inst.UIManager.HideStoreScreen();
@@ -15,6 +24,7 @@ public class StoreScreenView : MonoBehaviour
         {
             GameManager.inst.ResourcesManager.ModifyResourceValue(itemToTrade.reward.resource, itemToTrade.reward.resourcesQuantity);
         }
+        UpdateUI();
     }
     public void BuySkin(string SkinID)
     {
@@ -38,6 +48,7 @@ public class StoreScreenView : MonoBehaviour
         {
             GameManager.inst.ResourcesManager.SelectSkin(SkinID);
         }
+        UpdateUI();
     }
     public void BuyNextWeaponUpgrade()
     {
@@ -56,6 +67,16 @@ public class StoreScreenView : MonoBehaviour
             {
                 GameManager.inst.ResourcesManager.UpgradeWeapon();
             }
+            UpdateUI();
         }
+    }
+    private void UpdateUI()
+    {
+        OnUpdateUI?.Invoke();
+        SetActualSkinImage(GameManager.inst.ResourcesManager.resourcesConfig.GetSkinConfigByID(GameManager.inst.ResourcesManager.ActualSkin).icon);
+    }
+    private void SetActualSkinImage(Sprite sprite)
+    {
+        actualSkinImage.sprite = sprite;
     }
 } 

@@ -10,6 +10,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameplayUIScreen;
     [SerializeField] private GameObject storeScreen;
     [SerializeField] private GameObject endGameScreen;
+    [SerializeField] private StoreScreenView storeScreenView;
+
+    public StoreScreenView  StoreScreenView => storeScreenView;
     #region SplashScreen
     public void ShowSplashScreen()
     {

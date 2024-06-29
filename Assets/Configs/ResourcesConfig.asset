@@ -15,17 +15,17 @@ MonoBehaviour:
   initialResourceConfigs:
   - initialresource:
       resource: 0
-      resourcesQuantity: 10
+      resourcesQuantity: 100
     icon: {fileID: 21300000, guid: 9c5f75faa4c63d4499e6694da108de76, type: 3}
     pickeableItemPrefab: {fileID: 3478655270803029615, guid: ccfdd59ef0aa78340881b5c7af15b28b, type: 3}
   - initialresource:
       resource: 1
-      resourcesQuantity: 6
+      resourcesQuantity: 100
     icon: {fileID: 21300000, guid: 6b3b8ef492edc304f9230dc368e8af5c, type: 3}
     pickeableItemPrefab: {fileID: 3478655270803029615, guid: b3d41dffa9e16094da41b377e18eff5d, type: 3}
   - initialresource:
       resource: 2
-      resourcesQuantity: 11
+      resourcesQuantity: 100
     icon: {fileID: 21300000, guid: d2c0dc76eca05bb4eb4f3fc4a37f258d, type: 3}
     pickeableItemPrefab: {fileID: 3478655270803029615, guid: 95a0ba5facc5c804ebf1c45d1b6f4b14, type: 3}
   - initialresource:
@@ -75,6 +75,9 @@ MonoBehaviour:
     playerBooster:
       boosterType: 0
       multiplierValue: 1
+    icon: {fileID: 649275867, guid: db4367b3d41bdbb418fa7bdeea71e49e, type: 3}
+    skinName: No Skin
+    skinBoosterDescription: 
   - skinID: Cloak
     playerSkinPrefab: {fileID: 1418608593520776168, guid: e933a58815d218648ada1d1828919cd1, type: 3}
     skinCostResources:
@@ -85,6 +88,9 @@ MonoBehaviour:
     playerBooster:
       boosterType: 0
       multiplierValue: 2.5
+    icon: {fileID: 1771641610, guid: db4367b3d41bdbb418fa7bdeea71e49e, type: 3}
+    skinName: Speedo
+    skinBoosterDescription: 
   - skinID: Hat
     playerSkinPrefab: {fileID: 2036475388352344820, guid: abd45745324f06f42afb887a6ee1fe9c, type: 3}
     skinCostResources:
@@ -93,6 +99,9 @@ MonoBehaviour:
     playerBooster:
       boosterType: 1
       multiplierValue: 3
+    icon: {fileID: 221495009, guid: db4367b3d41bdbb418fa7bdeea71e49e, type: 3}
+    skinName: Rich man
+    skinBoosterDescription: 
   weaponConfig:
     weaponUpgrades:
     - cadence: 1

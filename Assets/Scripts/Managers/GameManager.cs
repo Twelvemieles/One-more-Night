@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public StoreManager storeManager;
     public AudioManager AudioManager;
 
-    private void Start()
+    private void OnEnable()
     {
         if(inst == null)
         {

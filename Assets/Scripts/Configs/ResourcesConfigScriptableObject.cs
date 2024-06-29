@@ -65,6 +65,9 @@ public class SkinsConfig
     public PlayerSkin playerSkinPrefab;
     public List<ResourceConfig> skinCostResources;
     public PlayerBooster playerBooster;
+    public Sprite icon;
+    public string skinName;
+    public string skinBoosterDescription;
 }
 #endregion
 
