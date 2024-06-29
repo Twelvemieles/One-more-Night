@@ -11,9 +11,9 @@ public class MineResourceProducer : InteractableObject
     [SerializeField] private Collider2D collider2D;
     [SerializeField] private Transform spawnResource;
 
-    private void Start()
+    protected override void Start()
     {
-        canInteract = true;
+        base.Start();
         collider2D.enabled = true;
     }
     public override void OnInteraction()
@@ -26,9 +26,25 @@ public class MineResourceProducer : InteractableObject
     }
     public void StartResourceGeneration()
     {
-        canInteract = false;
-        StartCoroutine(CooldownGeneration());
-        collider2D.enabled = false;
+        if(SpendCoinsToActivate())
+        {
+            canInteract = false;
+            StartCoroutine(CooldownGeneration());
+            collider2D.enabled = false;
+        }
+        else
+        {
+            PlayNoEnoughResourcesAnimation();
+        }
+    }
+    private bool SpendCoinsToActivate()
+    {
+        bool successful = GameManager.inst.ResourcesManager.TryToSpendResource(ResourcesManager.ResourceType.Coin, activationCost);
+        return successful;
+    }
+    private void PlayNoEnoughResourcesAnimation()
+    {
+
     }
     private IEnumerator CooldownGeneration()
     {

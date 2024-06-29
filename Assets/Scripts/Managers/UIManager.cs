@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject mainMenuScreen;
     [SerializeField] private GameObject gameplayScreen;
     [SerializeField] private GameObject gameplayUIScreen;
+    [SerializeField] private GameObject storeScreen;
     [SerializeField] private GameObject endGameScreen;
     #region SplashScreen
     public void ShowSplashScreen()
@@ -40,6 +41,7 @@ public class UIManager : MonoBehaviour
         gameplayUIScreen.SetActive(true);
         HideMainMenu();
         HideEndGameScreen();
+        HideStoreScreen();
     }
     public void HideGameplayScreen()
     {
@@ -55,6 +57,16 @@ public class UIManager : MonoBehaviour
     public void HideEndGameScreen()
     {
         endGameScreen.SetActive(false);
+    }
+    #endregion
+    #region Store Screen
+    public void ShowStoreScreen()
+    {
+        storeScreen.SetActive(true);
+    }
+    public void HideStoreScreen()
+    {
+        storeScreen.SetActive(false);
     }
     #endregion
 }

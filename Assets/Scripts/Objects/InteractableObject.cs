@@ -7,6 +7,10 @@ public class InteractableObject : MonoBehaviour
     protected bool canInteract;
     public bool CanInteract => canInteract;
 
+    protected virtual void Start()
+    {
+        canInteract = true;
+    }
     public virtual void OnInteraction()
     {
     }
