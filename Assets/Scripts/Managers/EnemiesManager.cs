@@ -41,4 +41,8 @@ public class EnemiesManager : MonoBehaviour
     {
         _enemiesCount--;
     }
+    public void OnEndgame()
+    {
+        _enemiesCount = 0;
+    }
 }

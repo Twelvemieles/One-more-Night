@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     {
         UIManager.ShowEndGameScreen(hasWin);
         PauseGameplay();
+        EnemiesManager.OnEndgame();
     }
     public void RestartGame()
     {

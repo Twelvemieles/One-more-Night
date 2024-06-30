@@ -37,7 +37,7 @@ public class PlayerView : CreatureView
         GameManager.inst.OnResumedGameplay += OnResume;
         GameManager.inst.OnRestartGameplay += OnRestart;
         _initialPosition = transform.localPosition;
-
+        _initialLanternintensity = lanternLight.intensity;
         _initialHealth = health;
         base.Start();
     }
@@ -45,7 +45,7 @@ public class PlayerView : CreatureView
     {
         transform.localPosition = _initialPosition;
         health = _initialHealth;
-        _initialLanternintensity = lanternLight.intensity;
+        lanternLight.intensity = _initialLanternintensity;
         HideLantern();
         OnSkinSelected(GameManager.inst.ResourcesManager.ActualSkin);
         GameManager.inst.UIManager.SetHealthSliderValue(health);
@@ -134,6 +134,7 @@ public class PlayerView : CreatureView
         {
             ShootBullet();
             _actualSkinUsed.PlayShootAnimation();
+            GameManager.inst.AudioManager.PlaySFX("Shot");
         }
     }
     private void ShootBullet()
@@ -236,12 +237,14 @@ public class PlayerView : CreatureView
     {
         base.ReceiveDamage(damage);
         GameManager.inst.UIManager.SetHealthSliderValue(health/ _initialHealth);
+        GameManager.inst.AudioManager.PlaySFX("GruntVoice01");
     }
 
     public override void Dies()
     {
         base.Dies();
         GameManager.inst.EndGame(false);
+        GameManager.inst.AudioManager.PlaySFX("DeathVoice");
     }
     #endregion
     private void OnPaused()
@@ -264,4 +267,5 @@ public class PlayerView : CreatureView
         GameManager.inst.OnResumedGameplay -= OnResume;
         GameManager.inst.OnRestartGameplay -= OnRestart;
     }
+    
 }

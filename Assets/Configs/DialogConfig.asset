@@ -188,7 +188,7 @@ MonoBehaviour:
       dialog: Money,  Money, Money !!
       sfxID: 
       dialogDuration: 0.5
-      dialogDelay: 0.2
+      dialogDelay: 0
       optionText1: 
       dialogIDOption1: 
       optionText2: 
@@ -196,25 +196,25 @@ MonoBehaviour:
       optionText3: 
       dialogIDOption3: 
       timelineAnimation: {fileID: 11400000, guid: 7f4de25b92c08f64a8f7812610f72fc6, type: 2}
-      isAutomaticNextDialog: 1
+      isAutomaticNextDialog: 0
   - dialogID: ShopInteraction_2
     characterName: Radio voice
     dialogBackgroundMusicID: 
     dialogs:
     - characterSprite: {fileID: 0}
       backgroundSprite: {fileID: 0}
-      dialog: People love that slime, F**k they're crazy.
+      dialog: People eat  that slime, they're crazy! or.. Do you like that?
       sfxID: 
       dialogDuration: 0.5
-      dialogDelay: 0.2
-      optionText1: 
+      dialogDelay: 0
+      optionText1: WTF??
       dialogIDOption1: 
-      optionText2: 
+      optionText2: That was breakfast ._.
       dialogIDOption2: 
       optionText3: 
       dialogIDOption3: 
       timelineAnimation: {fileID: 11400000, guid: 7f4de25b92c08f64a8f7812610f72fc6, type: 2}
-      isAutomaticNextDialog: 1
+      isAutomaticNextDialog: 0
   - dialogID: ShopInteraction_3
     characterName: Radio voice
     dialogBackgroundMusicID: 
@@ -224,7 +224,7 @@ MonoBehaviour:
       dialog: Ah! you still alive!
       sfxID: 
       dialogDuration: 0.5
-      dialogDelay: 0.2
+      dialogDelay: 0
       optionText1: 
       dialogIDOption1: 
       optionText2: 
@@ -232,4 +232,4 @@ MonoBehaviour:
       optionText3: 
       dialogIDOption3: 
       timelineAnimation: {fileID: 11400000, guid: 7f4de25b92c08f64a8f7812610f72fc6, type: 2}
-      isAutomaticNextDialog: 1
+      isAutomaticNextDialog: 0

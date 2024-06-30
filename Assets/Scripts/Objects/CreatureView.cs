@@ -35,5 +35,7 @@ public class CreatureView : MonoBehaviour
         {
             Dies();
         }
+
+        GameManager.inst.AudioManager.PlaySFX("Hit");
     }
 }

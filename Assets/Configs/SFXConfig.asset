@@ -23,3 +23,13 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: a3221a36edc792040a41a83baad28a90, type: 3}
   - id: MenuSelection
     audioClip: {fileID: 8300000, guid: 5dd3946e9d0da7b47b803abc3fdd6fdd, type: 3}
+  - id: Shot
+    audioClip: {fileID: 8300000, guid: 26e19616f6ba9f6469e9d3d6c38b23fe, type: 3}
+  - id: Hit
+    audioClip: {fileID: 8300000, guid: 87e2452fe2c754248926c9a9ab93a467, type: 3}
+  - id: GruntVoice01
+    audioClip: {fileID: 8300000, guid: 558f9f56f603a954b8d45e17e89341d9, type: 3}
+  - id: DeathVoice
+    audioClip: {fileID: 8300000, guid: bd8857660a16ba549b8cc522d93d9117, type: 3}
+  - id: ButtonHover
+    audioClip: {fileID: 8300000, guid: e7992d172691ce147bde04a9ea103f2c, type: 3}

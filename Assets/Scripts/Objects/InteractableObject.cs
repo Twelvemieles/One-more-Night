@@ -13,5 +13,7 @@ public class InteractableObject : MonoBehaviour
     }
     public virtual void OnInteraction()
     {
+
+        GameManager.inst.AudioManager.PlaySFX("ButtonHover");
     }
 }
