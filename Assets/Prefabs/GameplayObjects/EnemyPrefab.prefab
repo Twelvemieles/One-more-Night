@@ -62,8 +62,8 @@ MonoBehaviour:
   _navMeshAgent: {fileID: 4807136883226865546}
   lootType: 0
   lootQuantity: 2
-  secondsBackToPatrol: 3
-  patrollingRange: 1
+  secondsBackToPatrol: 1.5
+  patrollingRange: 10
   triggerCollider: {fileID: 1849531071105936933}
 --- !u!212 &666682973004685905
 SpriteRenderer:

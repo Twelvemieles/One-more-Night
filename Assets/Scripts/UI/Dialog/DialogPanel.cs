@@ -90,7 +90,9 @@ public class DialogPanel : MonoBehaviour
     }
     private void ShowNextDialog()
     {
-        Sprite backgroundSprite = GetActualDialog().backgroundSprite;
+        Dialog dialog = GetActualDialog();
+        if (dialog == null) return;
+        Sprite backgroundSprite = dialog.backgroundSprite;
         if (backgroundSprite != null)
         {
             EnableBackgroundSprite();
@@ -100,7 +102,7 @@ public class DialogPanel : MonoBehaviour
         {
             DisableBackgroundSprite();
         }
-        string dialogText = GetActualDialog().dialog;
+        string dialogText = dialog.dialog;
         if(!string.IsNullOrEmpty(dialogText) )
         {
             EnableDialogPanel();
@@ -110,7 +112,7 @@ public class DialogPanel : MonoBehaviour
         {
             DisableDialogPanel();
         }
-        Sprite characterSprite = GetActualDialog().characterSprite;
+        Sprite characterSprite = dialog.characterSprite;
         if (characterSprite != null)
         {
             EnableCharacterImage();
@@ -121,12 +123,12 @@ public class DialogPanel : MonoBehaviour
             DisableCharacterImage();
         }
 
-        string sfxID = GetActualDialog().sfxID;
+        string sfxID = dialog.sfxID;
         if (!string.IsNullOrEmpty(sfxID))
         {
             PlaySFX(sfxID);
         }
-        PlayableAsset playableAsset = GetActualDialog().timelineAnimation;
+        PlayableAsset playableAsset = dialog.timelineAnimation;
         if(playableAsset != null)
         {
             PlayPlayableAsset(playableAsset);
@@ -231,7 +233,10 @@ public class DialogPanel : MonoBehaviour
     }
     private void FinishDialog()
     {
-        PlayerPrefs.SetInt(_actualDialogConfig.dialogID, 1);
+        if (_actualDialogConfig != null)
+        {
+            PlayerPrefs.SetInt(_actualDialogConfig.dialogID, 1);
+        }
         Clear();
         _OnFinishDialog?.Invoke();
     }
@@ -325,7 +330,7 @@ public class DialogPanel : MonoBehaviour
     }
     private Dialog GetActualDialog()
     {
-        if(_actualDialogConfig.dialogs.Count > _actualDialogIndex)
+        if(_actualDialogConfig != null && _actualDialogConfig.dialogs.Count > _actualDialogIndex)
         {
             return _actualDialogConfig.dialogs[_actualDialogIndex];
         }
