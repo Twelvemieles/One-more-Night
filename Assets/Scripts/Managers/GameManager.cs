@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public delegate void VoidDelegate();
+    public event VoidDelegate OnResumedGameplay;
+    public event VoidDelegate OnRestartGameplay;
+    public event VoidDelegate OnPausedGameplay;
+
+
     public static GameManager inst;
 
     public UIManager UIManager;
@@ -38,9 +44,21 @@ public class GameManager : MonoBehaviour
     public void EndGame(bool hasWin)
     {
         UIManager.ShowEndGameScreen(hasWin);
+        PauseGameplay();
     }
     public void RestartGame()
     {
         UIManager.ShowGameplayScreen();
+        UIManager.HideEndGameScreen();
+        OnRestartGameplay?.Invoke();
+        ResourcesManager.SetupInitialResourcesValues();
+    }
+    public void PauseGameplay()
+    {
+        OnPausedGameplay?.Invoke();
+    }
+    public void ResumeGameplay()
+    {
+        OnResumedGameplay?.Invoke();
     }
 }

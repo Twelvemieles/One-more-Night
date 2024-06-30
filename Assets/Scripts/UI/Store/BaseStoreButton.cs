@@ -11,7 +11,7 @@ public class BaseStoreButton : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI rewardText;
 
     protected StoreScreenView _storeScreenView;
-    protected void Start()
+    protected void OnEnable()
     {
         SetInitialValues();
     }
@@ -49,5 +49,9 @@ public class BaseStoreButton : MonoBehaviour
     }
     protected virtual void UpdateUI()
     {
+    }
+    private void OnDisable()
+    {
+        _storeScreenView.OnUpdateUI -= UpdateUI;
     }
 }

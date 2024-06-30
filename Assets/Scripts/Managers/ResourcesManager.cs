@@ -207,4 +207,8 @@ public class ResourcesManager : MonoBehaviour
         _actualSkin = skinID;
         OnSkinSelected?.Invoke(skinID);
     }
+    public WeaponUpgrade GetActualWeaponUpgrade()
+    {
+        return resourcesConfig.GetWeaponUpgradebyIndex(_actualWeaponUpgrade);
+    }
 }

@@ -11,6 +11,10 @@ public class CreatureView : MonoBehaviour
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        SetupInitialValues();
+    }
+    protected virtual void SetupInitialValues()
+    {
     }
     protected virtual void Move(Vector2 movementVector)
     {
@@ -23,5 +27,13 @@ public class CreatureView : MonoBehaviour
     public virtual void Dies()
     {
 
+    }
+    public virtual void ReceiveDamage(float damage)
+    {
+        health -= damage;
+        if(health <= 0)
+        {
+            Dies();
+        }
     }
 }

@@ -13,6 +13,10 @@ public class StoreScreenView : MonoBehaviour
     {
         UpdateUI();
     }
+    private void Start()
+    {
+        UpdateUI();
+    }
     public void CloseStorePanel()
     {
         GameManager.inst.UIManager.HideStoreScreen();

@@ -5,38 +5,161 @@ using UnityEngine.AI;
 
 public class EnemyView : CreatureView
 {
-    [SerializeField] protected Transform target;
     [SerializeField] protected float visibilityRange;
-    [SerializeField] protected int lootQuantity;
     [SerializeField] protected NavMeshAgent  _navMeshAgent;
+    [SerializeField] protected ResourcesManager.ResourceType  lootType;
+    [SerializeField] protected int lootQuantity;
+    [SerializeField] protected float secondsBackToPatrol;
+    [SerializeField] protected float patrollingRange;
+    [SerializeField] protected Collider2D triggerCollider;
 
-    protected State actualState;
+    protected Transform _target;
+
+
+    protected EnemyState _actualState;
+
+    public enum EnemyState
+    {
+        Patrol,
+        Follow,
+        Attacking,
+        Paused
+    }
     protected override void Start()
     {
         base.Start();
+    }
+
+    protected void Update()
+    {
+
+        if (_actualState == EnemyState.Paused) return;
+        switch (_actualState)
+        {
+            case EnemyState.Follow:
+                if (_target != null)
+                {
+                    _navMeshAgent.SetDestination(_target.position);
+                }
+                break;
+        }
+    }
+    protected override void SetupInitialValues()
+    {
         _navMeshAgent.updateRotation = false;
         _navMeshAgent.updateUpAxis = false;
+        GameManager.inst.OnPausedGameplay += OnPaused;
+        GameManager.inst.OnResumedGameplay += OnResume;
+        GameManager.inst.OnRestartGameplay += DestroyEnemy;
+        StartPatrolling();
     }
-    public enum State
-    {
-        Idle,
-        Patrol,
-        Follow,
-    }
-    protected void StartIdle()
-    {
-        actualState = State.Idle;
-    }    
+    #region StateMachine
     protected void StartPatrolling()
     {
-        actualState = State.Patrol;
+        _navMeshAgent.speed = speed / 3f;
+        _actualState = EnemyState.Patrol;
+        StartCoroutine(DoPatrol());
     }
     protected void StartFollowing()
     {
-        actualState = State.Follow;
+        _navMeshAgent.speed = speed;
+        _actualState = EnemyState.Follow;
     }
-    protected void Update()
+    protected void Attack(CreatureView player)
     {
-        _navMeshAgent.SetDestination(target.position);
+        StopAllCoroutines();
+        _actualState = EnemyState.Attacking;
+        player.ReceiveDamage(damage);
+        StartCoroutine(StartCountDownToPatrol());
     }
+    protected IEnumerator StartCountDownToPatrol()
+    {
+        _navMeshAgent.isStopped = true;
+        _target = null;
+        triggerCollider.enabled = false;
+        yield return new WaitForSeconds(secondsBackToPatrol + Random.Range(-0.5f, 0.5f));
+        triggerCollider.enabled = true;
+        _navMeshAgent.isStopped = false;
+        StartPatrolling();
+    }
+    protected IEnumerator DoPatrol()
+    {
+        while (_actualState == EnemyState.Patrol)
+        {
+            GoToRandomClosePosition();
+            yield return new WaitForSeconds(secondsBackToPatrol + Random.Range(-0.5f, 0.5f));
+            yield return null;
+        }
+    }
+    protected void GoToRandomClosePosition()
+    {
+        Vector3 vector = new Vector3(Random.Range(-patrollingRange, patrollingRange), Random.Range(-patrollingRange, patrollingRange), transform.position.z);
+        _navMeshAgent.SetDestination(vector);
+    }
+
+    protected void OnPaused()
+    {
+        _actualState = EnemyState.Paused;
+    }
+    protected void OnResume()
+    {
+        _actualState = EnemyState.Patrol;
+    }
+    #endregion
+    #region Colliders
+    protected void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Player"))
+        {
+            StopAllCoroutines();
+            _target = collision.transform;
+            StartFollowing();
+        }
+    }
+    protected void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") && gameObject.activeInHierarchy)
+        {
+            StartCoroutine(StartCountDownToPatrol());
+        }
+    }
+    protected void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if (collision.transform.CompareTag("Player") && _actualState != EnemyState.Attacking)
+        {
+            Attack(collision.transform.GetComponent<PlayerView>());
+        }
+
+    }
+    #endregion
+    #region Destroy
+    public override void Dies()
+    {
+        StopAllCoroutines();
+        base.Dies();
+        GenerateLoot();
+        DestroyEnemy();
+    }
+    private void GenerateLoot()
+    {
+        for (int i = 0; i < lootQuantity; i++)
+        {
+            PickeableItem pickeableItem = GameManager.inst.ResourcesManager.GetPickeableResourcePrefab(lootType);
+            pickeableItem = Instantiate(pickeableItem, transform.position, Quaternion.identity);
+        }
+    }
+    protected void DestroyEnemy()
+    {
+        Destroy(gameObject);
+    }
+
+    protected void OnDestroy()
+    {
+        GameManager.inst.OnPausedGameplay -= OnPaused;
+        GameManager.inst.OnResumedGameplay -= OnResume;
+        GameManager.inst.OnRestartGameplay -= DestroyEnemy;
+    }
+    #endregion
+
 }

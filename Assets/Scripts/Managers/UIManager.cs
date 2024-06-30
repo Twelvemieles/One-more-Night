@@ -9,8 +9,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameplayScreen;
     [SerializeField] private GameObject gameplayUIScreen;
     [SerializeField] private GameObject storeScreen;
-    [SerializeField] private GameObject endGameScreen;
+    [SerializeField] private EndgameScreenView endGameScreen;
     [SerializeField] private StoreScreenView storeScreenView;
+    [SerializeField] private HealthSliderView healthSliderView;
 
     public StoreScreenView  StoreScreenView => storeScreenView;
     #region SplashScreen
@@ -55,21 +56,30 @@ public class UIManager : MonoBehaviour
     #region EndGameScreen
     public void ShowEndGameScreen(bool hasWin)
     {
-        endGameScreen.SetActive(true);
+        endGameScreen.gameObject.SetActive(true);
+        endGameScreen.ShowEndGame(hasWin);
     }
     public void HideEndGameScreen()
     {
-        endGameScreen.SetActive(false);
+        endGameScreen.gameObject.SetActive(false);
     }
     #endregion
     #region Store Screen
     public void ShowStoreScreen()
     {
+        GameManager.inst.PauseGameplay();
         storeScreen.SetActive(true);
     }
     public void HideStoreScreen()
     {
+        GameManager.inst.ResumeGameplay();
         storeScreen.SetActive(false);
+    }
+    #endregion
+    #region sliderValue
+    public void SetHealthSliderValue(float value)
+    {
+        healthSliderView.setSliderValue(value);
     }
     #endregion
 }

@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class BulletView : MonoBehaviour
 {
-    [SerializeField] private float _speedMovement;
-    private float _lifeTimeDuration;
-    private Rigidbody2D _rb;
-    public void init( float lifeTimeDuration)
+    [SerializeField] private float bulletRangeSeconds;
+    [SerializeField] private float speedMovement;
+
+    [SerializeField] private Rigidbody2D _rb;
+
+    private float _damage;
+    public void init( Vector2 direction)
     {
-        _lifeTimeDuration = lifeTimeDuration;
-        _rb = GetComponent<Rigidbody2D>();
+        _damage = GameManager.inst.ResourcesManager.GetActualWeaponUpgrade().damage ;
+        _rb.velocity = direction * speedMovement;
         StartCoroutine(CountDownDestroy());
-        _rb.AddForce((Vector2)transform.up * _speedMovement ,ForceMode2D.Impulse);
     }
     private IEnumerator CountDownDestroy()
     {
-        yield return new WaitForSeconds(_lifeTimeDuration);
+        yield return new WaitForSeconds(bulletRangeSeconds);
         DestroyBullet();
 
     }
@@ -24,6 +26,15 @@ public class BulletView : MonoBehaviour
     {
         StopAllCoroutines();
         Destroy(gameObject);
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        EnemyView enemy = collision.transform.GetComponent<EnemyView>();
+        if(enemy != null)
+        {
+            enemy.ReceiveDamage(_damage);
+        }
+        DestroyBullet();
     }
 
 }

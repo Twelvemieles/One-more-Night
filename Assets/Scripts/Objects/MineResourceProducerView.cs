@@ -52,9 +52,9 @@ public class MineResourceProducer : InteractableObject
     }
     private void GenerateResource()
     {
+        canInteract = true;
         PickeableItem pickeableItem = GameManager.inst.ResourcesManager.GetPickeableResourcePrefab(resourceType);
         pickeableItem = Instantiate(pickeableItem, spawnResource);
         collider2D.enabled = true;
-        canInteract = true;
     }
 }

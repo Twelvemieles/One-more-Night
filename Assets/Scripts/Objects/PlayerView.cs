@@ -5,8 +5,7 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerView : CreatureView
 {
-    [SerializeField] private float shootSpeed;
-    [SerializeField] private float bulletRangeSeconds;
+    
     [SerializeField] private float coinMultiplier;
     [SerializeField] private BulletView bulletViewPrefab;
     [SerializeField] private Transform bulletSpawn;
@@ -21,17 +20,36 @@ public class PlayerView : CreatureView
     private bool _isLanternActive;
     private float _initialLanternintensity;
     private PlayerSkin _actualSkinUsed;
+    private PlayerState _actualstate = PlayerState.InGame;
+    private float _initialHealth;
+    private Vector2 _initialPosition;
+
+    public enum PlayerState
+    {
+        InGame,
+        Paused
+    }
+
     protected override void Start()
     {
-        base.Start();
         GameManager.inst.ResourcesManager.OnSkinSelected += OnSkinSelected;
-        SetupInitialValues();
+        GameManager.inst.OnPausedGameplay += OnPaused;
+        GameManager.inst.OnResumedGameplay += OnResume;
+        GameManager.inst.OnRestartGameplay += OnRestart;
+        _initialPosition = transform.localPosition;
+
+        _initialHealth = health;
+        base.Start();
     }
-    private void SetupInitialValues()
+    protected override void SetupInitialValues()
     {
+        transform.localPosition = _initialPosition;
+        health = _initialHealth;
         _initialLanternintensity = lanternLight.intensity;
         HideLantern();
         OnSkinSelected(GameManager.inst.ResourcesManager.ActualSkin);
+        GameManager.inst.UIManager.SetHealthSliderValue(health);
+        OnResume();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -51,14 +69,18 @@ public class PlayerView : CreatureView
     }
     void Update()
     {
+        if (_actualstate == PlayerState.Paused) return;
+
         Vector2 movementVector = new Vector2();
-        // Get input from the player
+
         movementVector.x = Input.GetAxis("Horizontal");
         movementVector.y = Input.GetAxis("Vertical");
         
         Move(movementVector);
+        RotateShootPointToMouse();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             Attack();
         }
@@ -92,6 +114,21 @@ public class PlayerView : CreatureView
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
         }
     }
+    #region Shooting
+    void RotateShootPointToMouse()
+    {
+        // Get the mouse position in screen coordinates
+        Vector3 mouseScreenPos = Input.mousePosition;
+
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+        mouseWorldPos.z = 0; 
+
+        Vector2 direction = (mouseWorldPos - transform.position).normalized;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        bulletSpawn.parent.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+    }
+
     protected override void Attack()
     {
         base.Attack();
@@ -101,14 +138,24 @@ public class PlayerView : CreatureView
         }
     }
     private void ShootBullet()
-    {
-        BulletView bulletView = Instantiate(bulletViewPrefab, bulletSpawn.position, bulletSpawn.rotation);
-        bulletView.init(bulletRangeSeconds);
+
+    { 
+        Vector3 mouseScreenPos = Input.mousePosition;
+
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+
+        Vector2 direction = (mouseWorldPos - bulletSpawn.position).normalized;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        BulletView bulletView = Instantiate(bulletViewPrefab, bulletSpawn.position, Quaternion.identity);
+        bulletView.init(direction);
     }
     private bool SpendBullet()
     {
         return GameManager.inst.ResourcesManager.TryToSpendResource(ResourcesManager.ResourceType.Bullet, 1);
     }
+    #endregion
 
     #region Interaction
     private void Interact()
@@ -158,13 +205,13 @@ public class PlayerView : CreatureView
     }
     private void HideLantern()
     {
-        StopCoroutine(DoUseLantern());  
+        StopAllCoroutines();  
         _isLanternActive = false;
         lanternLight.intensity = 0;
     }
     #endregion
 
-# region Skin
+    #region Skin
 
     private void OnSkinSelected(string SkinConfig)
     {
@@ -185,9 +232,37 @@ public class PlayerView : CreatureView
         _actualSkinUsed = null;
     }
     #endregion
+    #region Damage
+    public override void ReceiveDamage(float damage)
+    {
+        base.ReceiveDamage(damage);
+        GameManager.inst.UIManager.SetHealthSliderValue(health/ _initialHealth);
+    }
+
+    public override void Dies()
+    {
+        base.Dies();
+        GameManager.inst.EndGame(false);
+    }
+    #endregion
+    private void OnPaused()
+    {
+        _actualstate = PlayerState.Paused;
+    }
+    private void OnResume()
+    {
+        _actualstate = PlayerState.InGame;
+    }
+    private void OnRestart()
+    {
+        _actualstate = PlayerState.InGame;
+        SetupInitialValues();
+    }
     private void OnDestroy()
     {
-
+        GameManager.inst.OnPausedGameplay -= OnPaused;
         GameManager.inst.ResourcesManager.OnSkinSelected -= OnSkinSelected;
+        GameManager.inst.OnResumedGameplay -= OnResume;
+        GameManager.inst.OnRestartGameplay -= OnRestart;
     }
 }
