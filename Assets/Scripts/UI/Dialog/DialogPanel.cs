@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 public class DialogPanel : MonoBehaviour
 {
-    public static string SKIN_SELECTION_DIALOG  = "SkinSelection";
     [SerializeField] private DialogConfigScriptableObject dialogConfig;
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject dialogPanel;
@@ -178,7 +177,6 @@ public class DialogPanel : MonoBehaviour
     }
     public void OnOptionClick(int option,bool isLockedButton,bool isVIPOption)
     {
-            CheckSkinSelection(option);
             PlaySFX(dialogClickSFXID);
             PlayerPrefs.SetInt(_actualDialogConfig.dialogID, 1);
             switch (option)
@@ -229,24 +227,6 @@ public class DialogPanel : MonoBehaviour
         if (!string.IsNullOrEmpty(link))
         {
             Application.OpenURL(link);
-        }
-    }
-private void CheckSkinSelection(int option)
-    {
-        if (_actualDialogConfig.dialogID == SKIN_SELECTION_DIALOG)
-        {/*
-            switch (option)
-            {
-                case 0:
-                    GameManager.inst.PointAndClickManager.SetPurahSkin(Purah.skins.None);
-                    break;
-                case 1:
-                    GameManager.inst.PointAndClickManager.SetPurahSkin(Purah.skins.MediumDress);
-                    break;
-                case 2:
-                    GameManager.inst.PointAndClickManager.SetPurahSkin(Purah.skins.Nude);
-                    break;
-            }*/
         }
     }
     private void FinishDialog()
@@ -345,7 +325,15 @@ private void CheckSkinSelection(int option)
     }
     private Dialog GetActualDialog()
     {
-        return _actualDialogConfig.dialogs[_actualDialogIndex];
+        if(_actualDialogConfig.dialogs.Count > _actualDialogIndex)
+        {
+            return _actualDialogConfig.dialogs[_actualDialogIndex];
+        }
+        else
+        {
+            FinishDialog();
+            return null;
+        }
     }
     private Dialog GetDialogConfigByIndex(int index)
     {

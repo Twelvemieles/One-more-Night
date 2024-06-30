@@ -11,9 +11,13 @@ public class StoreView : InteractableObject
     }
     private void ShowStoreUI()
     {
-        if(canInteract)
-        {
-            GameManager.inst.UIManager.ShowStoreScreen();
-        }
+        GameManager.inst.UIManager.ShowDialog(string.Concat("ShopInteraction_", Random.Range(1,4).ToString()), () =>
+         {
+
+             if (canInteract)
+             {
+                 GameManager.inst.UIManager.ShowStoreScreen();
+             }
+         });
     }
 }

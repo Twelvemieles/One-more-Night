@@ -30,7 +30,7 @@ MonoBehaviour:
     pickeableItemPrefab: {fileID: 3478655270803029615, guid: 95a0ba5facc5c804ebf1c45d1b6f4b14, type: 3}
   - initialresource:
       resource: 3
-      resourcesQuantity: 10
+      resourcesQuantity: 25
     icon: {fileID: 21300000, guid: 9a397e83c4c3c994c988babb654f2b5d, type: 3}
     pickeableItemPrefab: {fileID: 0}
   - initialresource:

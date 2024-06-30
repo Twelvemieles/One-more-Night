@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private EndgameScreenView endGameScreen;
     [SerializeField] private StoreScreenView storeScreenView;
     [SerializeField] private HealthSliderView healthSliderView;
+    [SerializeField] private DialogPanel dialogPanel;
 
     public StoreScreenView  StoreScreenView => storeScreenView;
     #region SplashScreen
@@ -45,7 +47,12 @@ public class UIManager : MonoBehaviour
         gameplayUIScreen.SetActive(true);
         HideMainMenu();
         HideEndGameScreen();
-        HideStoreScreen();
+        GameManager.inst.PauseGameplay();
+        ShowDialog("Tutorial_1", () =>
+         {
+             GameManager.inst.ResumeGameplay();
+         }
+        );
     }
     public void HideGameplayScreen()
     {
@@ -80,6 +87,12 @@ public class UIManager : MonoBehaviour
     public void SetHealthSliderValue(float value)
     {
         healthSliderView.setSliderValue(value);
+    }
+    #endregion
+    #region DialogPanel
+    public void ShowDialog(string dialogID, Action OnFinishDialog)
+    {
+        dialogPanel.Init(dialogID, OnFinishDialog);
     }
     #endregion
 }

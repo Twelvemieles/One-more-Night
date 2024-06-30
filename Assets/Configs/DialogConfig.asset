@@ -12,4 +12,209 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662b9f1b2371efb46bf222c564288298, type: 3}
   m_Name: DialogConfig
   m_EditorClassIdentifier: 
-  Configs: []
+  Configs:
+  - dialogID: Intro
+    characterName: you
+    dialogBackgroundMusicID: 
+    dialogs:
+    - characterSprite: {fileID: 0}
+      backgroundSprite: {fileID: 0}
+      dialog: I have no options...
+      sfxID: 
+      dialogDuration: 0.5
+      dialogDelay: 0
+      optionText1: 
+      dialogIDOption1: 
+      optionText2: 
+      dialogIDOption2: 
+      optionText3: 
+      dialogIDOption3: 
+      timelineAnimation: {fileID: 11400000, guid: 7f4de25b92c08f64a8f7812610f72fc6, type: 2}
+      isAutomaticNextDialog: 0
+    - characterSprite: {fileID: 0}
+      backgroundSprite: {fileID: 0}
+      dialog: My childs have no food...
+      sfxID: 
+      dialogDuration: 0.5
+      dialogDelay: 0
+      optionText1: 
+      dialogIDOption1: 
+      optionText2: 
+      dialogIDOption2: 
+      optionText3: 
+      dialogIDOption3: 
+      timelineAnimation: {fileID: 11400000, guid: 7f4de25b92c08f64a8f7812610f72fc6, type: 2}
+      isAutomaticNextDialog: 0
+    - characterSprite: {fileID: 0}
+      backgroundSprite: {fileID: 0}
+      dialog: Do it for them!
+      sfxID: 
+      dialogDuration: 0.5
+      dialogDelay: 0
+      optionText1: 
+      dialogIDOption1: 
+      optionText2: 
+      dialogIDOption2: 
+      optionText3: 
+      dialogIDOption3: 
+      timelineAnimation: {fileID: 11400000, guid: 7f4de25b92c08f64a8f7812610f72fc6, type: 2}
+      isAutomaticNextDialog: 0
+  - dialogID: Tutorial_1
+    characterName: Radio voice
+    dialogBackgroundMusicID: 
+    dialogs:
+    - characterSprite: {fileID: 0}
+      backgroundSprite: {fileID: 0}
+      dialog: Ah! so you're the new, uh?
+      sfxID: 
+      dialogDuration: 0.5
+      dialogDelay: 0
+      optionText1: 
+      dialogIDOption1: 
+      optionText2: 
+      dialogIDOption2: 
+      optionText3: 
+      dialogIDOption3: 
+      timelineAnimation: {fileID: 11400000, guid: 7f4de25b92c08f64a8f7812610f72fc6, type: 2}
+      isAutomaticNextDialog: 0
+    - characterSprite: {fileID: 0}
+      backgroundSprite: {fileID: 0}
+      dialog: Well, let's see if you last at least one night HAHAHAHAH
+      sfxID: 
+      dialogDuration: 0.5
+      dialogDelay: 0
+      optionText1: 
+      dialogIDOption1: 
+      optionText2: 
+      dialogIDOption2: 
+      optionText3: 
+      dialogIDOption3: 
+      timelineAnimation: {fileID: 11400000, guid: 7f4de25b92c08f64a8f7812610f72fc6, type: 2}
+      isAutomaticNextDialog: 0
+    - characterSprite: {fileID: 0}
+      backgroundSprite: {fileID: 0}
+      dialog: So we need money, go out there and bring me everithing you can find,
+        I can pay you for it
+      sfxID: 
+      dialogDuration: 0.5
+      dialogDelay: 0
+      optionText1: 
+      dialogIDOption1: 
+      optionText2: 
+      dialogIDOption2: 
+      optionText3: 
+      dialogIDOption3: 
+      timelineAnimation: {fileID: 11400000, guid: 7f4de25b92c08f64a8f7812610f72fc6, type: 2}
+      isAutomaticNextDialog: 0
+    - characterSprite: {fileID: 0}
+      backgroundSprite: {fileID: 0}
+      dialog: ' Or I even give you some backups... for some coins ofcourse.'
+      sfxID: 
+      dialogDuration: 0.5
+      dialogDelay: 0
+      optionText1: 
+      dialogIDOption1: 
+      optionText2: 
+      dialogIDOption2: 
+      optionText3: 
+      dialogIDOption3: 
+      timelineAnimation: {fileID: 11400000, guid: 7f4de25b92c08f64a8f7812610f72fc6, type: 2}
+      isAutomaticNextDialog: 0
+    - characterSprite: {fileID: 0}
+      backgroundSprite: {fileID: 0}
+      dialog: That's all boy! go out there, Shoot with your mouse and don't die!
+        HAHAHAHAHAHHA
+      sfxID: 
+      dialogDuration: 0.5
+      dialogDelay: 0
+      optionText1: 
+      dialogIDOption1: 
+      optionText2: 
+      dialogIDOption2: 
+      optionText3: 
+      dialogIDOption3: 
+      timelineAnimation: {fileID: 11400000, guid: 7f4de25b92c08f64a8f7812610f72fc6, type: 2}
+      isAutomaticNextDialog: 0
+    - characterSprite: {fileID: 0}
+      backgroundSprite: {fileID: 0}
+      dialog: Oh! don't forget to use your flashlight [ Q ] , those ugly bastards
+        hate the light.
+      sfxID: 
+      dialogDuration: 0.5
+      dialogDelay: 0
+      optionText1: 
+      dialogIDOption1: 
+      optionText2: 
+      dialogIDOption2: 
+      optionText3: 
+      dialogIDOption3: 
+      timelineAnimation: {fileID: 11400000, guid: 7f4de25b92c08f64a8f7812610f72fc6, type: 2}
+      isAutomaticNextDialog: 0
+    - characterSprite: {fileID: 0}
+      backgroundSprite: {fileID: 0}
+      dialog: Watch your back!
+      sfxID: 
+      dialogDuration: 0.5
+      dialogDelay: 0
+      optionText1: 
+      dialogIDOption1: 
+      optionText2: 
+      dialogIDOption2: 
+      optionText3: 
+      dialogIDOption3: 
+      timelineAnimation: {fileID: 11400000, guid: 7f4de25b92c08f64a8f7812610f72fc6, type: 2}
+      isAutomaticNextDialog: 0
+  - dialogID: ShopInteraction_1
+    characterName: Radio voice
+    dialogBackgroundMusicID: 
+    dialogs:
+    - characterSprite: {fileID: 0}
+      backgroundSprite: {fileID: 0}
+      dialog: Money,  Money, Money !!
+      sfxID: 
+      dialogDuration: 0.5
+      dialogDelay: 0
+      optionText1: 
+      dialogIDOption1: 
+      optionText2: 
+      dialogIDOption2: 
+      optionText3: 
+      dialogIDOption3: 
+      timelineAnimation: {fileID: 11400000, guid: 7f4de25b92c08f64a8f7812610f72fc6, type: 2}
+      isAutomaticNextDialog: 1
+  - dialogID: ShopInteraction_2
+    characterName: Radio voice
+    dialogBackgroundMusicID: 
+    dialogs:
+    - characterSprite: {fileID: 0}
+      backgroundSprite: {fileID: 0}
+      dialog: People love that slime, F**k they're crazy.
+      sfxID: 
+      dialogDuration: 0.5
+      dialogDelay: 0
+      optionText1: 
+      dialogIDOption1: 
+      optionText2: 
+      dialogIDOption2: 
+      optionText3: 
+      dialogIDOption3: 
+      timelineAnimation: {fileID: 11400000, guid: 7f4de25b92c08f64a8f7812610f72fc6, type: 2}
+      isAutomaticNextDialog: 1
+  - dialogID: ShopInteraction_3
+    characterName: Radio voice
+    dialogBackgroundMusicID: 
+    dialogs:
+    - characterSprite: {fileID: 0}
+      backgroundSprite: {fileID: 0}
+      dialog: Ah! you still alive!
+      sfxID: 
+      dialogDuration: 0.5
+      dialogDelay: 0
+      optionText1: 
+      dialogIDOption1: 
+      optionText2: 
+      dialogIDOption2: 
+      optionText3: 
+      dialogIDOption3: 
+      timelineAnimation: {fileID: 11400000, guid: 7f4de25b92c08f64a8f7812610f72fc6, type: 2}
+      isAutomaticNextDialog: 1

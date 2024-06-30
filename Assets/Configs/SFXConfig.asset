@@ -12,5 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b6c691c6f2be3d47a587917443fa1ca, type: 3}
   m_Name: SFXConfig
   m_EditorClassIdentifier: 
-  SFXConfigs: []
-  PurahVoices: []
+  SFXConfigs:
+  - id: DialogClick
+    audioClip: {fileID: 8300000, guid: b575c4911a043e143b9be24877476ec9, type: 3}
+  - id: Interaction
+    audioClip: {fileID: 8300000, guid: 7f0d4048b3706ce4f91cbb24f2eb4fd3, type: 3}
+  - id: MainMenuGameStart
+    audioClip: {fileID: 8300000, guid: 4f61e3a117cfd9f4e81a575f89bc7c4a, type: 3}
+  - id: MenuMove
+    audioClip: {fileID: 8300000, guid: a3221a36edc792040a41a83baad28a90, type: 3}
+  - id: MenuSelection
+    audioClip: {fileID: 8300000, guid: 5dd3946e9d0da7b47b803abc3fdd6fdd, type: 3}

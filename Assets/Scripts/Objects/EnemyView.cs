@@ -74,10 +74,14 @@ public class EnemyView : CreatureView
     }
     protected IEnumerator StartCountDownToPatrol()
     {
+        if (_navMeshAgent == null) yield return null;
+
         _navMeshAgent.isStopped = true;
         _target = null;
         triggerCollider.enabled = false;
+
         yield return new WaitForSeconds(secondsBackToPatrol + Random.Range(-0.5f, 0.5f));
+
         triggerCollider.enabled = true;
         _navMeshAgent.isStopped = false;
         StartPatrolling();
@@ -93,7 +97,7 @@ public class EnemyView : CreatureView
     }
     protected void GoToRandomClosePosition()
     {
-        Vector3 vector = new Vector3(Random.Range(-patrollingRange, patrollingRange), Random.Range(-patrollingRange, patrollingRange), transform.position.z);
+        Vector3 vector = new Vector3(transform.position.x + Random.Range(-patrollingRange, patrollingRange), transform.position.y + Random.Range(-patrollingRange, patrollingRange), transform.position.z);
         _navMeshAgent.SetDestination(vector);
     }
 
@@ -140,6 +144,7 @@ public class EnemyView : CreatureView
         base.Dies();
         GenerateLoot();
         DestroyEnemy();
+        GameManager.inst.EnemiesManager.OnEnemyDies();
     }
     private void GenerateLoot()
     {

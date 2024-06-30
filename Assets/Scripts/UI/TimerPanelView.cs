@@ -20,7 +20,7 @@ public class TimerPanelView : MonoBehaviour
     }
     private void InitializeValues()
     {
-        _actualTime = 0;
+        _actualTime = totalGameTime;
         StartTimer();
     }
     public void StartTimer()
@@ -37,14 +37,14 @@ public class TimerPanelView : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
 
-            _actualTime += 1f;
+            _actualTime -= 1f;
             TimeSpan time = TimeSpan.FromSeconds(_actualTime);
-            if(_actualTime >= totalGameTime)
+            if(_actualTime <= 0)
             {
                 OnTimeIsOver();
             }
 
-            SetTimerText(string.Format("{0}:{1}",
+            SetTimerText(string.Format("{0:D2}:{1:D2}",
                             time.Minutes,
                             time.Seconds ));
             yield return null;

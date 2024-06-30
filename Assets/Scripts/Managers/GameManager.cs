@@ -39,7 +39,12 @@ public class GameManager : MonoBehaviour
     }
     public void StartGamePlay()
     {
-        UIManager.ShowGameplayScreen();
+        UIManager.HideMainMenu();
+        UIManager.ShowDialog("Intro", () =>
+         {
+             UIManager.ShowGameplayScreen();
+             EnemiesManager.OnGameStart();
+         });
     }
     public void EndGame(bool hasWin)
     {
