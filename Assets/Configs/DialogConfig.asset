@@ -108,7 +108,7 @@ MonoBehaviour:
       isAutomaticNextDialog: 0
     - characterSprite: {fileID: 0}
       backgroundSprite: {fileID: 0}
-      dialog: ' Or I even give you some backups... for some coins ofcourse.'
+      dialog: I can even give you some backups... for some coins of course.
       sfxID: 
       dialogDuration: 0.5
       dialogDelay: 0
@@ -124,6 +124,21 @@ MonoBehaviour:
       backgroundSprite: {fileID: 0}
       dialog: That's all boy! go out there, Shoot with your mouse and don't die!
         HAHAHAHAHAHHA
+      sfxID: 
+      dialogDuration: 0.5
+      dialogDelay: 0
+      optionText1: 
+      dialogIDOption1: 
+      optionText2: 
+      dialogIDOption2: 
+      optionText3: 
+      dialogIDOption3: 
+      timelineAnimation: {fileID: 11400000, guid: 7f4de25b92c08f64a8f7812610f72fc6, type: 2}
+      isAutomaticNextDialog: 0
+    - characterSprite: {fileID: 0}
+      backgroundSprite: {fileID: 0}
+      dialog: You'll find drill machines, activate them and wait until generate the
+        resources.
       sfxID: 
       dialogDuration: 0.5
       dialogDelay: 0

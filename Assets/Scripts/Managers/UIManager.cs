@@ -44,14 +44,22 @@ public class UIManager : MonoBehaviour
     public void ShowGameplayScreen()
     {
         gameplayScreen.SetActive(true);
-        gameplayUIScreen.SetActive(true);
+        gameplayUIScreen.SetActive(false);
         HideMainMenu();
         HideEndGameScreen();
+        Invoke("ShowFirstDialogTutorial", 0.2f);
+    }
+    private void ShowFirstDialogTutorial()
+    {
+
         GameManager.inst.PauseGameplay();
         ShowDialog("Tutorial_1", () =>
-         {
-             GameManager.inst.ResumeGameplay();
-         }
+        {
+
+            gameplayUIScreen.SetActive(true);
+            GameManager.inst.ResumeGameplay();
+            GameManager.inst.EnemiesManager.OnGameStart();
+        }
         );
     }
     public void HideGameplayScreen()
@@ -92,6 +100,7 @@ public class UIManager : MonoBehaviour
     #region DialogPanel
     public void ShowDialog(string dialogID, Action OnFinishDialog)
     {
+        GameManager.inst.PauseGameplay();
         dialogPanel.Init(dialogID, OnFinishDialog);
     }
     #endregion

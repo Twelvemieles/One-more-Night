@@ -43,7 +43,6 @@ public class GameManager : MonoBehaviour
         UIManager.ShowDialog("Intro", () =>
          {
              UIManager.ShowGameplayScreen();
-             EnemiesManager.OnGameStart();
          });
     }
     public void EndGame(bool hasWin)
