@@ -104,16 +104,14 @@ public class PlayerView : CreatureView
     }
     protected override void Move(Vector2 movementVector)
     {
-        base.Move(movementVector);
-        rb.MovePosition(rb.position + movementVector * speed * Time.fixedDeltaTime);
-
-
-        if (movementVector != Vector2.zero)
+        if(movementVector.magnitude > 0)
         {
-            float angle = Mathf.Atan2(movementVector.y, movementVector.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+            base.Move(movementVector);
+            rb.MovePosition(rb.position + movementVector * speed * Time.fixedDeltaTime);
+            _actualSkinUsed.PlayWalkingAnimation(movementVector.magnitude * 10f);
         }
     }
+
     #region Shooting
     void RotateShootPointToMouse()
     {
@@ -135,6 +133,7 @@ public class PlayerView : CreatureView
         if(SpendBullet())
         {
             ShootBullet();
+            _actualSkinUsed.PlayShootAnimation();
         }
     }
     private void ShootBullet()

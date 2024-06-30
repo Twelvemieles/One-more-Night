@@ -173,7 +173,7 @@ MonoBehaviour:
       dialog: Money,  Money, Money !!
       sfxID: 
       dialogDuration: 0.5
-      dialogDelay: 0
+      dialogDelay: 0.2
       optionText1: 
       dialogIDOption1: 
       optionText2: 
@@ -191,7 +191,7 @@ MonoBehaviour:
       dialog: People love that slime, F**k they're crazy.
       sfxID: 
       dialogDuration: 0.5
-      dialogDelay: 0
+      dialogDelay: 0.2
       optionText1: 
       dialogIDOption1: 
       optionText2: 
@@ -209,7 +209,7 @@ MonoBehaviour:
       dialog: Ah! you still alive!
       sfxID: 
       dialogDuration: 0.5
-      dialogDelay: 0
+      dialogDelay: 0.2
       optionText1: 
       dialogIDOption1: 
       optionText2: 

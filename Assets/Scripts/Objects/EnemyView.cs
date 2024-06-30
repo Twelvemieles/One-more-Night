@@ -12,6 +12,7 @@ public class EnemyView : CreatureView
     [SerializeField] protected float secondsBackToPatrol;
     [SerializeField] protected float patrollingRange;
     [SerializeField] protected Collider2D triggerCollider;
+    [SerializeField] protected Animator animator;
 
     protected Transform _target;
 
@@ -74,7 +75,7 @@ public class EnemyView : CreatureView
     }
     protected IEnumerator StartCountDownToPatrol()
     {
-        if (_navMeshAgent == null) yield return null;
+        if (gameObject.activeInHierarchy) yield return null;
 
         _navMeshAgent.isStopped = true;
         _target = null;
@@ -108,6 +109,10 @@ public class EnemyView : CreatureView
     protected void OnResume()
     {
         _actualState = EnemyState.Patrol;
+    }
+    protected void SetAnimatorSpeedValue()
+    {
+        animator.SetFloat("Speed", _navMeshAgent.velocity.magnitude);
     }
     #endregion
     #region Colliders
