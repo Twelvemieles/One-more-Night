@@ -51,12 +51,19 @@ public class PlayerView : CreatureView
         GameManager.inst.UIManager.SetHealthSliderValue(health);
         OnResume();
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        _closeInteractableObject = collision.gameObject.GetComponent<InteractableObject>();
+    private void OnTriggerStay2D(Collider2D collision)
+    { 
+        if(_closeInteractableObject == null)
+        {
+            _closeInteractableObject = collision.gameObject.GetComponent<InteractableObject>();
+        }
         if (_closeInteractableObject != null && _closeInteractableObject.CanInteract)
         {
             EnableInteractionExclamation();
+        }
+        else
+        {
+            DisableInteractionExclamation();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
